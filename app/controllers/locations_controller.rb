@@ -1,6 +1,7 @@
 class LocationsController < ApplicationController
   include LocationsHelper
   before_action :set_location, only: [:show, :edit, :update, :destroy]
+  before_action :select_city, only: [:new, :edit]
 
   # GET /locations
   # GET /locations.json
@@ -86,5 +87,34 @@ source_url = "http://developer.itsmarta.com/BRDRestService/RestBusRealTimeServic
     # Never trust parameters from the scary internet, only allow the white list through.
     def location_params
       params.require(:location).permit(:street_address, :city, :latitude, :longitude)
+    end
+
+    def select_city
+      @cities = ['Atlanta',
+           'Alpharetta',
+           'Avondale Estates',
+           'Chamblee',
+           'Clarkston',
+           'College Park',
+           'Decatur',
+           'Doraville',
+           'Dunwoody',
+           'East Point',
+           'Ellenwood',
+           'Fairburn',
+           'Forest Park',
+           'Hapeville',
+           'Jonesboro',
+           'Lake City',
+           'Lovejoy',
+           'Lithonia',
+           'Morrow',
+           'Palmetto',
+           'Riverdale',
+           'Roswell',
+           'Sandy Springs',
+           'Stone Mountain',
+           'Union City'
+      ]
     end
 end
