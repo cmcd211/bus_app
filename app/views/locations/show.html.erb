@@ -42,12 +42,32 @@
     var map = new google.maps.Map(document.getElementById('map-canvas'),
         mapOptions);
 
+
+    var personIcon = "<%= image_path 'man_icon.png' %>";
+
      var myMarker = new google.maps.Marker({
-    position: myLatlng,
-    map: map,
-    animation: google.maps.Animation.DROP,
-    title: 'My Location'
-  });
+        position: myLatlng,
+        map: map,
+        animation: google.maps.Animation.DROP,
+        title: 'My Location',
+        icon: personIcon
+      });
+
+     var nearbyBuses = <%= raw @buses.to_json %>;
+
+     nearbyBuses.forEach(function (element){
+        var busLatlng = new google.maps.LatLng(element['LATITUDE'], element['LONGITUDE']);
+
+        var marker = new google.maps.Marker({
+          position: busLatlng,
+          map: map,
+          animation: google.maps.Animation.DROP,
+          title: element['VEHICLE']
+        });
+      });
+
   }
+
   google.maps.event.addDomListener(window, 'load', initialize);
 </script>
+
